@@ -3,8 +3,20 @@
     <div class="title-bar-left">
       <span class="title-bar-icon" aria-hidden="true">
         <svg viewBox="0 0 20 20" fill="none">
-          <path d="M3 6l7-3.5L17 6v8l-7 3.5L3 14V6z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 6l7 3.5L17 6M10 9.5V17.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          <path
+            d="M3 6l7-3.5L17 6v8l-7 3.5L3 14V6z"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M3 6l7 3.5L17 6M10 9.5V17.5"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </span>
       <span class="title-bar-app-name">{{ t('nav.companyName') }}</span>
@@ -14,12 +26,50 @@
       <button
         type="button"
         class="title-bar-btn"
+        :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        @click="toggleTheme"
+      >
+        <svg v-if="isDark" viewBox="0 0 12 12" fill="none">
+          <circle
+            cx="6"
+            cy="6"
+            r="2.5"
+            stroke="currentColor"
+            stroke-width="1.15"
+          />
+          <path
+            d="M6 0.5v1.4M6 10.1v1.4M0.5 6h1.4M10.1 6h1.4M2.3 2.3l1 1M8.7 8.7l1 1M9.7 2.3l-1 1M3.3 8.7l-1 1"
+            stroke="currentColor"
+            stroke-width="1.1"
+            stroke-linecap="round"
+          />
+        </svg>
+        <svg v-else viewBox="0 0 12 12" fill="none">
+          <path
+            d="M9.7 7.4A4.1 4.1 0 015.3 1.3a4.6 4.6 0 105.4 5.4c-0.3 0.5-0.6 0.7-1 0.7z"
+            stroke="currentColor"
+            stroke-width="1.1"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="title-bar-btn"
         :title="t('titleBar.minimize')"
         :aria-label="t('titleBar.minimize')"
         @click="$emit('minimize')"
       >
         <svg viewBox="0 0 12 12" fill="none">
-          <path d="M2 6h8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          <path
+            d="M2 6h8"
+            stroke="currentColor"
+            stroke-width="1.25"
+            stroke-linecap="round"
+          />
         </svg>
       </button>
 
@@ -27,15 +77,39 @@
         type="button"
         class="title-bar-btn"
         :title="isFullscreen ? t('titleBar.restore') : t('titleBar.maximize')"
-        :aria-label="isFullscreen ? t('titleBar.restore') : t('titleBar.maximize')"
+        :aria-label="
+          isFullscreen ? t('titleBar.restore') : t('titleBar.maximize')
+        "
         @click="toggleFullscreen"
       >
         <svg v-if="!isFullscreen" viewBox="0 0 12 12" fill="none">
-          <rect x="1.75" y="1.75" width="8.5" height="8.5" stroke="currentColor" stroke-width="1.25"/>
+          <rect
+            x="1.75"
+            y="1.75"
+            width="8.5"
+            height="8.5"
+            stroke="currentColor"
+            stroke-width="1.25"
+          />
         </svg>
         <svg v-else viewBox="0 0 12 12" fill="none">
-          <rect x="3.5" y="1.5" width="7" height="7" stroke="currentColor" stroke-width="1.15"/>
-          <rect x="1.5" y="3.5" width="7" height="7" class="restore-icon-front" stroke="currentColor" stroke-width="1.15"/>
+          <rect
+            x="3.5"
+            y="1.5"
+            width="7"
+            height="7"
+            stroke="currentColor"
+            stroke-width="1.15"
+          />
+          <rect
+            x="1.5"
+            y="3.5"
+            width="7"
+            height="7"
+            class="restore-icon-front"
+            stroke="currentColor"
+            stroke-width="1.15"
+          />
         </svg>
       </button>
 
@@ -47,7 +121,12 @@
         @click="showCloseDialog = true"
       >
         <svg viewBox="0 0 12 12" fill="none">
-          <path d="M2 2L10 10M10 2L2 10" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          <path
+            d="M2 2L10 10M10 2L2 10"
+            stroke="currentColor"
+            stroke-width="1.25"
+            stroke-linecap="round"
+          />
         </svg>
       </button>
     </div>
@@ -60,11 +139,22 @@
         class="close-dialog-overlay"
         @click.self="dismissCloseDialog"
       >
-        <div class="close-dialog" role="dialog" aria-modal="true" :aria-label="t('titleBar.closeDialogTitle')">
-          <h3 class="close-dialog-title">{{ t('titleBar.closeDialogTitle') }}</h3>
+        <div
+          class="close-dialog"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="t('titleBar.closeDialogTitle')"
+        >
+          <h3 class="close-dialog-title">
+            {{ t('titleBar.closeDialogTitle') }}
+          </h3>
           <p class="close-dialog-body">{{ t('titleBar.closeDialogBody') }}</p>
           <div class="close-dialog-actions">
-            <button type="button" class="close-dialog-btn" @click="dismissCloseDialog">
+            <button
+              type="button"
+              class="close-dialog-btn"
+              @click="dismissCloseDialog"
+            >
               {{ t('titleBar.closeDialogAcknowledge') }}
             </button>
           </div>
@@ -75,10 +165,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
+import { useTheme } from '../composables/useTheme'
 
 const { t } = useI18n()
+const { theme, toggleTheme } = useTheme()
+const isDark = computed(() => theme.value === 'dark')
 
 defineEmits(['minimize'])
 
@@ -183,7 +276,9 @@ const dismissCloseDialog = async () => {
   border: none;
   color: #94a3b8;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .title-bar-btn svg {

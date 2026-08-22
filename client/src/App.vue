@@ -3,96 +3,231 @@
     <TitleBar @minimize="isMinimized = true" />
 
     <div class="app-body" :class="{ 'app-body-minimized': isMinimized }">
-    <aside class="sidebar" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
-      <div class="brand">
-        <h1 class="brand-name">{{ t('nav.companyName') }}</h1>
-        <span class="brand-subtitle">{{ t('nav.subtitle') }}</span>
-        <span class="brand-mark">{{ brandInitials }}</span>
-        <button
-          type="button"
-          class="sidebar-toggle"
-          @click="sidebarCollapsed = !sidebarCollapsed"
-          :title="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'"
-        >
-          <svg class="sidebar-toggle-icon" viewBox="0 0 20 20" fill="none">
-            <path v-if="!sidebarCollapsed" d="M12.5 4.5L7 10l5.5 5.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path v-else d="M7.5 4.5L13 10l-5.5 5.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+      <aside class="sidebar" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
+        <div class="brand">
+          <h1 class="brand-name">{{ t('nav.companyName') }}</h1>
+          <span class="brand-subtitle">{{ t('nav.subtitle') }}</span>
+          <span class="brand-mark">{{ brandInitials }}</span>
+          <button
+            type="button"
+            class="sidebar-toggle"
+            @click="sidebarCollapsed = !sidebarCollapsed"
+            :title="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'"
+          >
+            <svg class="sidebar-toggle-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                v-if="!sidebarCollapsed"
+                d="M12.5 4.5L7 10l5.5 5.5"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                v-else
+                d="M7.5 4.5L13 10l-5.5 5.5"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <nav class="nav-tabs">
+          <router-link
+            to="/"
+            :class="{ active: $route.path === '/' }"
+            :title="t('nav.overview')"
+          >
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M3 9.5L10 3l7 6.5"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5 8v8a1 1 0 001 1h3v-5h2v5h3a1 1 0 001-1V8"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="nav-label">{{ t('nav.overview') }}</span>
+          </router-link>
+          <router-link
+            to="/inventory"
+            :class="{ active: $route.path === '/inventory' }"
+            :title="t('nav.inventory')"
+          >
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M3 6l7-3.5L17 6v8l-7 3.5L3 14V6z"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3 6l7 3.5L17 6M10 9.5V17.5"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="nav-label">{{ t('nav.inventory') }}</span>
+          </router-link>
+          <router-link
+            to="/orders"
+            :class="{ active: $route.path === '/orders' }"
+            :title="t('nav.orders')"
+          >
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M5 3h10a1 1 0 011 1v13l-2.5-1.5L11 17l-2.5-1.5L6 17l-2.5-1.5L4 17V4a1 1 0 011-1z"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7 7h6M7 10h6M7 13h3"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="nav-label">{{ t('nav.orders') }}</span>
+          </router-link>
+          <router-link
+            to="/spending"
+            :class="{ active: $route.path === '/spending' }"
+            :title="t('nav.finance')"
+          >
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M3 17V9M8 17V5M13 17V11M18 17V3"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="nav-label">{{ t('nav.finance') }}</span>
+          </router-link>
+          <router-link
+            to="/demand"
+            :class="{ active: $route.path === '/demand' }"
+            :title="t('nav.demandForecast')"
+          >
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M3 14l4-4 3 3 6-7"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 6h4v4"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="nav-label">{{ t('nav.demandForecast') }}</span>
+          </router-link>
+          <router-link
+            to="/restocking"
+            :class="{ active: $route.path === '/restocking' }"
+            :title="t('nav.restocking')"
+          >
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M3 5h9v9H3V5z"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15 8h2l2 2v4h-4V8z"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M6.5 8.5v3M5 10h3"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="7"
+                cy="16"
+                r="1.25"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <circle
+                cx="15"
+                cy="16"
+                r="1.25"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+            </svg>
+            <span class="nav-label">{{ t('nav.restocking') }}</span>
+          </router-link>
+          <router-link
+            to="/reports"
+            :class="{ active: $route.path === '/reports' }"
+            title="Reports"
+          >
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M6 3h6l3 3v11a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 3v3h3M7 10h6M7 13h6M7 16h4"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="nav-label">Reports</span>
+          </router-link>
+        </nav>
+
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-footer">
+          <LanguageSwitcher />
+          <ProfileMenu
+            @show-profile-details="showProfileDetails = true"
+            @show-tasks="showTasks = true"
+          />
+        </div>
+      </aside>
+
+      <div class="content-column">
+        <FilterBar />
+        <main class="main-content">
+          <router-view />
+        </main>
       </div>
-
-      <nav class="nav-tabs">
-        <router-link to="/" :class="{ active: $route.path === '/' }" :title="t('nav.overview')">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M3 9.5L10 3l7 6.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M5 8v8a1 1 0 001 1h3v-5h2v5h3a1 1 0 001-1V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="nav-label">{{ t('nav.overview') }}</span>
-        </router-link>
-        <router-link to="/inventory" :class="{ active: $route.path === '/inventory' }" :title="t('nav.inventory')">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M3 6l7-3.5L17 6v8l-7 3.5L3 14V6z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3 6l7 3.5L17 6M10 9.5V17.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="nav-label">{{ t('nav.inventory') }}</span>
-        </router-link>
-        <router-link to="/orders" :class="{ active: $route.path === '/orders' }" :title="t('nav.orders')">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M5 3h10a1 1 0 011 1v13l-2.5-1.5L11 17l-2.5-1.5L6 17l-2.5-1.5L4 17V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7 7h6M7 10h6M7 13h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-          </svg>
-          <span class="nav-label">{{ t('nav.orders') }}</span>
-        </router-link>
-        <router-link to="/spending" :class="{ active: $route.path === '/spending' }" :title="t('nav.finance')">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M3 17V9M8 17V5M13 17V11M18 17V3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="nav-label">{{ t('nav.finance') }}</span>
-        </router-link>
-        <router-link to="/demand" :class="{ active: $route.path === '/demand' }" :title="t('nav.demandForecast')">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M3 14l4-4 3 3 6-7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 6h4v4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="nav-label">{{ t('nav.demandForecast') }}</span>
-        </router-link>
-        <router-link to="/restocking" :class="{ active: $route.path === '/restocking' }" :title="t('nav.restocking')">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M3 5h9v9H3V5z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M15 8h2l2 2v4h-4V8z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.5 8.5v3M5 10h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-            <circle cx="7" cy="16" r="1.25" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="15" cy="16" r="1.25" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-          <span class="nav-label">{{ t('nav.restocking') }}</span>
-        </router-link>
-        <router-link to="/reports" :class="{ active: $route.path === '/reports' }" title="Reports">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M6 3h6l3 3v11a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 3v3h3M7 10h6M7 13h6M7 16h4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-          </svg>
-          <span class="nav-label">Reports</span>
-        </router-link>
-      </nav>
-
-      <div class="sidebar-spacer"></div>
-      <div class="sidebar-divider"></div>
-
-      <div class="sidebar-footer">
-        <LanguageSwitcher />
-        <ProfileMenu
-          @show-profile-details="showProfileDetails = true"
-          @show-tasks="showTasks = true"
-        />
-      </div>
-    </aside>
-
-    <div class="content-column">
-      <FilterBar />
-      <main class="main-content">
-        <router-view />
-      </main>
-    </div>
     </div>
 
     <Transition name="minimize-pill">
@@ -104,8 +239,23 @@
         :title="t('titleBar.restoreApp')"
       >
         <svg class="restore-pill-icon" viewBox="0 0 12 12" fill="none">
-          <rect x="3.5" y="1.5" width="7" height="7" stroke="currentColor" stroke-width="1.15"/>
-          <rect x="1.5" y="3.5" width="7" height="7" class="restore-pill-icon-front" stroke="currentColor" stroke-width="1.15"/>
+          <rect
+            x="3.5"
+            y="1.5"
+            width="7"
+            height="7"
+            stroke="currentColor"
+            stroke-width="1.15"
+          />
+          <rect
+            x="1.5"
+            y="3.5"
+            width="7"
+            height="7"
+            class="restore-pill-icon-front"
+            stroke="currentColor"
+            stroke-width="1.15"
+          />
         </svg>
         <span class="restore-pill-label">{{ t('nav.companyName') }}</span>
       </button>
@@ -147,7 +297,7 @@ export default {
     ProfileDetailsModal,
     TasksModal,
     LanguageSwitcher,
-    TitleBar
+    TitleBar,
   },
   setup() {
     const { currentUser } = useAuth()
@@ -156,7 +306,9 @@ export default {
     const showTasks = ref(false)
     const apiTasks = ref([])
     const isMinimized = ref(false)
-    const sidebarCollapsed = ref(localStorage.getItem('sidebar-collapsed') === 'true')
+    const sidebarCollapsed = ref(
+      localStorage.getItem('sidebar-collapsed') === 'true',
+    )
 
     watch(sidebarCollapsed, (value) => {
       localStorage.setItem('sidebar-collapsed', value)
@@ -168,7 +320,7 @@ export default {
         .split(/\s+/)
         .filter(Boolean)
         .slice(0, 2)
-        .map(word => word[0])
+        .map((word) => word[0])
         .join('')
         .toUpperCase()
     })
@@ -199,18 +351,20 @@ export default {
     const deleteTask = async (taskId) => {
       try {
         // Check if it's a mock task (from currentUser)
-        const isMockTask = currentUser.value.tasks.some(t => t.id === taskId)
+        const isMockTask = currentUser.value.tasks.some((t) => t.id === taskId)
 
         if (isMockTask) {
           // Remove from mock tasks
-          const index = currentUser.value.tasks.findIndex(t => t.id === taskId)
+          const index = currentUser.value.tasks.findIndex(
+            (t) => t.id === taskId,
+          )
           if (index !== -1) {
             currentUser.value.tasks.splice(index, 1)
           }
         } else {
           // Remove from API tasks
           await api.deleteTask(taskId)
-          apiTasks.value = apiTasks.value.filter(t => t.id !== taskId)
+          apiTasks.value = apiTasks.value.filter((t) => t.id !== taskId)
         }
       } catch (err) {
         console.error('Failed to delete task:', err)
@@ -220,15 +374,16 @@ export default {
     const toggleTask = async (taskId) => {
       try {
         // Check if it's a mock task (from currentUser)
-        const mockTask = currentUser.value.tasks.find(t => t.id === taskId)
+        const mockTask = currentUser.value.tasks.find((t) => t.id === taskId)
 
         if (mockTask) {
           // Toggle mock task status
-          mockTask.status = mockTask.status === 'pending' ? 'completed' : 'pending'
+          mockTask.status =
+            mockTask.status === 'pending' ? 'completed' : 'pending'
         } else {
           // Toggle API task
           const updatedTask = await api.toggleTask(taskId)
-          const index = apiTasks.value.findIndex(t => t.id === taskId)
+          const index = apiTasks.value.findIndex((t) => t.id === taskId)
           if (index !== -1) {
             apiTasks.value[index] = updatedTask
           }
@@ -284,13 +439,48 @@ export default {
       deleteTask,
       toggleTask,
       isMinimized,
-      sidebarCollapsed
+      sidebarCollapsed,
     }
-  }
+  },
 }
 </script>
 
 <style>
+/* Theme variables: light is the default/existing slate palette, dark is a
+   parallel palette applied via [data-theme="dark"] on <html> (see
+   composables/useTheme.js + index.html's pre-paint script). Status colors
+   (badges, success/warning/danger/info) are intentionally left as literal
+   values in both themes - they already have enough contrast against both
+   light and dark card backgrounds. */
+:root {
+  --color-bg: #f8fafc;
+  --color-text: #1e293b;
+  --color-text-strong: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-subtle: #475569;
+  --color-border: #e2e8f0;
+  --color-border-subtle: #f1f5f9;
+  --color-card-bg: #ffffff;
+  --color-table-head-bg: #f8fafc;
+  --color-row-hover: #f8fafc;
+  --shadow-card:
+    0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme='dark'] {
+  --color-bg: #0b1120;
+  --color-text: #e2e8f0;
+  --color-text-strong: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-text-subtle: #cbd5e1;
+  --color-border: #334155;
+  --color-border-subtle: #1e293b;
+  --color-card-bg: #1e293b;
+  --color-table-head-bg: #0f172a;
+  --color-row-hover: #273548;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -298,14 +488,28 @@ export default {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #f8fafc;
-  color: #1e293b;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
 }
 
@@ -322,7 +526,9 @@ html, body, #app {
   min-height: 0;
   display: flex;
   overflow: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 }
 
 .app-body-minimized {
@@ -378,7 +584,9 @@ html, body, #app {
 
 .minimize-pill-enter-active,
 .minimize-pill-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .minimize-pill-enter-from,
@@ -570,13 +778,13 @@ html, body, #app {
 .page-header h2 {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-strong);
   margin-bottom: 0.375rem;
   letter-spacing: -0.025em;
 }
 
 .page-header p {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 0.938rem;
 }
 
@@ -588,11 +796,11 @@ html, body, #app {
 }
 
 .stat-card {
-  background: white;
+  background: var(--color-card-bg);
   padding: 1.25rem;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
   transition: all 0.2s ease;
 }
 
@@ -602,7 +810,7 @@ html, body, #app {
 }
 
 .stat-label {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -613,7 +821,7 @@ html, body, #app {
 .stat-value {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-strong);
   letter-spacing: -0.025em;
 }
 
@@ -634,11 +842,11 @@ html, body, #app {
 }
 
 .card {
-  background: white;
+  background: var(--color-card-bg);
   border-radius: 12px;
   padding: 1.25rem;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
   margin-bottom: 1.25rem;
 }
 
@@ -648,13 +856,13 @@ html, body, #app {
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 0.875rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .card-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-strong);
   letter-spacing: -0.025em;
 }
 
@@ -668,16 +876,16 @@ table {
 }
 
 thead {
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--color-table-head-bg);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 th {
   text-align: left;
   padding: 0.5rem 0.75rem;
   font-weight: 600;
-  color: #475569;
+  color: var(--color-text-subtle);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -685,8 +893,8 @@ th {
 
 td {
   padding: 0.5rem 0.75rem;
-  border-top: 1px solid #f1f5f9;
-  color: #334155;
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-text);
   font-size: 0.875rem;
 }
 
@@ -695,7 +903,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: #f8fafc;
+  background: var(--color-row-hover);
 }
 
 .badge {
@@ -761,7 +969,7 @@ tbody tr:hover {
 .loading {
   text-align: center;
   padding: 3rem;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 0.938rem;
 }
 
