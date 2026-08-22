@@ -6,6 +6,7 @@ export default {
     orders: '注文',
     finance: '財務',
     demandForecast: '需要予測',
+    restocking: '補充',
     companyName: '触媒コンポーネンツ',
     subtitle: '在庫管理システム'
   },
@@ -126,6 +127,19 @@ export default {
       status: 'ステータス',
       expectedDelivery: '予定配達日',
       actualDelivery: '実際の配達日'
+    },
+    submittedOrders: {
+      title: '提出済み補充注文',
+      noOrders: 'まだ提出された補充注文はありません。',
+      table: {
+        orderNumber: '注文番号',
+        items: '品目',
+        status: 'ステータス',
+        orderDate: '注文日',
+        expectedDelivery: '予定配達日',
+        leadTime: 'リードタイム（日）',
+        totalValue: '合計金額'
+      }
     }
   },
 
@@ -185,6 +199,32 @@ export default {
       change: '変化',
       trend: 'トレンド',
       period: '期間'
+    }
+  },
+
+  // Restocking
+  restocking: {
+    title: '補充',
+    description: '需要に基づく補充提案を確認し、予算内で注文を行う',
+    budget: '補充予算',
+    totalCost: '合計コスト',
+    remaining: '残り予算',
+    itemsRecommended: '推奨品目数',
+    recommendedOrders: '推奨補充注文',
+    noRecommendations: '現在の予算内で補充が必要な品目はありません。',
+    overBudgetNote: '{count}件の品目が補充対象でしたが、予算超過のため除外されました。',
+    placeOrder: '注文する',
+    placingOrder: '注文中...',
+    orderPlacedSuccess: '補充注文が正常に送信されました。注文タブの「提出済み補充注文」でご確認ください。',
+    table: {
+      itemName: '品目名',
+      sku: 'SKU',
+      category: 'カテゴリ',
+      trend: 'トレンド',
+      quantity: '数量',
+      unitCost: '単価',
+      subtotal: '小計',
+      leadTime: 'リードタイム（日）'
     }
   },
 
@@ -309,6 +349,18 @@ export default {
     english: 'English',
     japanese: '日本語',
     selectLanguage: '言語を選択'
+  },
+
+  // Title Bar
+  titleBar: {
+    minimize: '最小化',
+    maximize: '最大化',
+    restore: '元に戻す',
+    close: '閉じる',
+    restoreApp: 'アプリを復元',
+    closeDialogTitle: 'これはデモアプリケーションです',
+    closeDialogBody: 'このタイトルバーはブラウザのタブ内で動作するアプリシェルの一部であるため、実際にブラウザタブを閉じることはできません。現在フルスクリーン表示の場合は、フルスクリーンを終了することが最も近い動作となり、自動的に行われます。',
+    closeDialogAcknowledge: '了解'
   },
 
   // Common

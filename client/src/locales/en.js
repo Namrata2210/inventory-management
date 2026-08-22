@@ -6,6 +6,7 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    restocking: 'Restocking',
     companyName: 'Catalyst Components',
     subtitle: 'Inventory Management System'
   },
@@ -126,6 +127,19 @@ export default {
       status: 'Status',
       expectedDelivery: 'Expected Delivery',
       actualDelivery: 'Actual Delivery'
+    },
+    submittedOrders: {
+      title: 'Submitted Orders',
+      noOrders: 'No restocking orders submitted yet.',
+      table: {
+        orderNumber: 'Order Number',
+        items: 'Items',
+        status: 'Status',
+        orderDate: 'Order Date',
+        expectedDelivery: 'Expected Delivery',
+        leadTime: 'Lead Time (days)',
+        totalValue: 'Total Value'
+      }
     }
   },
 
@@ -185,6 +199,32 @@ export default {
       change: 'Change',
       trend: 'Trend',
       period: 'Period'
+    }
+  },
+
+  // Restocking
+  restocking: {
+    title: 'Restocking',
+    description: 'Review demand-driven restock recommendations and place orders within budget',
+    budget: 'Restock Budget',
+    totalCost: 'Total Cost',
+    remaining: 'Remaining Budget',
+    itemsRecommended: 'Items Recommended',
+    recommendedOrders: 'Recommended Restock Order',
+    noRecommendations: 'No items need restocking within the current budget.',
+    overBudgetNote: '{count} item(s) qualified for restocking but were skipped because the budget ran out.',
+    placeOrder: 'Place Order',
+    placingOrder: 'Placing Order...',
+    orderPlacedSuccess: 'Restock order placed successfully. View it in the Orders tab under Submitted Orders.',
+    table: {
+      itemName: 'Item Name',
+      sku: 'SKU',
+      category: 'Category',
+      trend: 'Trend',
+      quantity: 'Quantity',
+      unitCost: 'Unit Cost',
+      subtotal: 'Subtotal',
+      leadTime: 'Lead Time (days)'
     }
   },
 
@@ -309,6 +349,18 @@ export default {
     english: 'English',
     japanese: 'Japanese',
     selectLanguage: 'Select Language'
+  },
+
+  // Title Bar
+  titleBar: {
+    minimize: 'Minimize',
+    maximize: 'Maximize',
+    restore: 'Restore',
+    close: 'Close',
+    restoreApp: 'Restore application',
+    closeDialogTitle: 'This is a demo application',
+    closeDialogBody: 'This title bar is part of the app shell running inside your browser tab, so it cannot actually close the browser tab. If you are currently in fullscreen mode, exiting fullscreen is the closest equivalent and will happen automatically.',
+    closeDialogAcknowledge: 'Got it'
   },
 
   // Common

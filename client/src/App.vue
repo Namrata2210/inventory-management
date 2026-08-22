@@ -1,42 +1,115 @@
 <template>
   <div class="app">
-    <header class="top-nav">
-      <div class="nav-container">
-        <div class="logo">
-          <h1>{{ t('nav.companyName') }}</h1>
-          <span class="subtitle">{{ t('nav.subtitle') }}</span>
-        </div>
-        <nav class="nav-tabs">
-          <router-link to="/" :class="{ active: $route.path === '/' }">
-            {{ t('nav.overview') }}
-          </router-link>
-          <router-link to="/inventory" :class="{ active: $route.path === '/inventory' }">
-            {{ t('nav.inventory') }}
-          </router-link>
-          <router-link to="/orders" :class="{ active: $route.path === '/orders' }">
-            {{ t('nav.orders') }}
-          </router-link>
-          <router-link to="/spending" :class="{ active: $route.path === '/spending' }">
-            {{ t('nav.finance') }}
-          </router-link>
-          <router-link to="/demand" :class="{ active: $route.path === '/demand' }">
-            {{ t('nav.demandForecast') }}
-          </router-link>
-          <router-link to="/reports" :class="{ active: $route.path === '/reports' }">
-            Reports
-          </router-link>
-        </nav>
+    <TitleBar @minimize="isMinimized = true" />
+
+    <div class="app-body" :class="{ 'app-body-minimized': isMinimized }">
+    <aside class="sidebar" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
+      <div class="brand">
+        <h1 class="brand-name">{{ t('nav.companyName') }}</h1>
+        <span class="brand-subtitle">{{ t('nav.subtitle') }}</span>
+        <span class="brand-mark">{{ brandInitials }}</span>
+        <button
+          type="button"
+          class="sidebar-toggle"
+          @click="sidebarCollapsed = !sidebarCollapsed"
+          :title="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'"
+        >
+          <svg class="sidebar-toggle-icon" viewBox="0 0 20 20" fill="none">
+            <path v-if="!sidebarCollapsed" d="M12.5 4.5L7 10l5.5 5.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path v-else d="M7.5 4.5L13 10l-5.5 5.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="nav-tabs">
+        <router-link to="/" :class="{ active: $route.path === '/' }" :title="t('nav.overview')">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M3 9.5L10 3l7 6.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 8v8a1 1 0 001 1h3v-5h2v5h3a1 1 0 001-1V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-label">{{ t('nav.overview') }}</span>
+        </router-link>
+        <router-link to="/inventory" :class="{ active: $route.path === '/inventory' }" :title="t('nav.inventory')">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M3 6l7-3.5L17 6v8l-7 3.5L3 14V6z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 6l7 3.5L17 6M10 9.5V17.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-label">{{ t('nav.inventory') }}</span>
+        </router-link>
+        <router-link to="/orders" :class="{ active: $route.path === '/orders' }" :title="t('nav.orders')">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M5 3h10a1 1 0 011 1v13l-2.5-1.5L11 17l-2.5-1.5L6 17l-2.5-1.5L4 17V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 7h6M7 10h6M7 13h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+          <span class="nav-label">{{ t('nav.orders') }}</span>
+        </router-link>
+        <router-link to="/spending" :class="{ active: $route.path === '/spending' }" :title="t('nav.finance')">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M3 17V9M8 17V5M13 17V11M18 17V3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-label">{{ t('nav.finance') }}</span>
+        </router-link>
+        <router-link to="/demand" :class="{ active: $route.path === '/demand' }" :title="t('nav.demandForecast')">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M3 14l4-4 3 3 6-7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 6h4v4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-label">{{ t('nav.demandForecast') }}</span>
+        </router-link>
+        <router-link to="/restocking" :class="{ active: $route.path === '/restocking' }" :title="t('nav.restocking')">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M3 5h9v9H3V5z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 8h2l2 2v4h-4V8z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.5 8.5v3M5 10h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            <circle cx="7" cy="16" r="1.25" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="15" cy="16" r="1.25" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span class="nav-label">{{ t('nav.restocking') }}</span>
+        </router-link>
+        <router-link to="/reports" :class="{ active: $route.path === '/reports' }" title="Reports">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M6 3h6l3 3v11a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 3v3h3M7 10h6M7 13h6M7 16h4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+          <span class="nav-label">Reports</span>
+        </router-link>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-footer">
         <LanguageSwitcher />
         <ProfileMenu
           @show-profile-details="showProfileDetails = true"
           @show-tasks="showTasks = true"
         />
       </div>
-    </header>
-    <FilterBar />
-    <main class="main-content">
-      <router-view />
-    </main>
+    </aside>
+
+    <div class="content-column">
+      <FilterBar />
+      <main class="main-content">
+        <router-view />
+      </main>
+    </div>
+    </div>
+
+    <Transition name="minimize-pill">
+      <button
+        v-if="isMinimized"
+        type="button"
+        class="restore-pill"
+        @click="isMinimized = false"
+        :title="t('titleBar.restoreApp')"
+      >
+        <svg class="restore-pill-icon" viewBox="0 0 12 12" fill="none">
+          <rect x="3.5" y="1.5" width="7" height="7" stroke="currentColor" stroke-width="1.15"/>
+          <rect x="1.5" y="3.5" width="7" height="7" class="restore-pill-icon-front" stroke="currentColor" stroke-width="1.15"/>
+        </svg>
+        <span class="restore-pill-label">{{ t('nav.companyName') }}</span>
+      </button>
+    </Transition>
 
     <ProfileDetailsModal
       :is-open="showProfileDetails"
@@ -55,7 +128,7 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { api } from './api'
 import { useAuth } from './composables/useAuth'
 import { useI18n } from './composables/useI18n'
@@ -64,6 +137,7 @@ import ProfileMenu from './components/ProfileMenu.vue'
 import ProfileDetailsModal from './components/ProfileDetailsModal.vue'
 import TasksModal from './components/TasksModal.vue'
 import LanguageSwitcher from './components/LanguageSwitcher.vue'
+import TitleBar from './components/TitleBar.vue'
 
 export default {
   name: 'App',
@@ -72,7 +146,8 @@ export default {
     ProfileMenu,
     ProfileDetailsModal,
     TasksModal,
-    LanguageSwitcher
+    LanguageSwitcher,
+    TitleBar
   },
   setup() {
     const { currentUser } = useAuth()
@@ -80,6 +155,23 @@ export default {
     const showProfileDetails = ref(false)
     const showTasks = ref(false)
     const apiTasks = ref([])
+    const isMinimized = ref(false)
+    const sidebarCollapsed = ref(localStorage.getItem('sidebar-collapsed') === 'true')
+
+    watch(sidebarCollapsed, (value) => {
+      localStorage.setItem('sidebar-collapsed', value)
+    })
+
+    const brandInitials = computed(() => {
+      const name = t('nav.companyName') || ''
+      return name
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(word => word[0])
+        .join('')
+        .toUpperCase()
+    })
 
     // Merge mock tasks from currentUser with API tasks
     const tasks = computed(() => {
@@ -146,16 +238,53 @@ export default {
       }
     }
 
-    onMounted(loadTasks)
+    // Best-effort: browsers only allow requestFullscreen() during a genuine
+    // user gesture, so we can't just call it on mount. Instead, listen for
+    // the very first click/keydown after load and use that gesture to enter
+    // fullscreen automatically. Only attempted once per browser session
+    // (tracked via sessionStorage) so reloads don't keep hijacking the
+    // user's first interaction, and it never re-triggers if they exit
+    // fullscreen later. The Maximize button in TitleBar.vue remains the
+    // reliable manual fallback either way.
+    const setupAutoFullscreen = () => {
+      if (document.fullscreenElement) return
+      if (sessionStorage.getItem('fullscreen-auto-requested') === 'true') return
+
+      const requestFullscreenOnce = (event) => {
+        document.removeEventListener('click', requestFullscreenOnce, true)
+        document.removeEventListener('keydown', requestFullscreenOnce, true)
+        sessionStorage.setItem('fullscreen-auto-requested', 'true')
+
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch((err) => {
+            console.debug('Auto fullscreen request was not granted:', err)
+          })
+        }
+        // Intentionally don't call preventDefault/stopPropagation - the
+        // user's actual click/keypress should still do whatever it was
+        // going to do.
+      }
+
+      document.addEventListener('click', requestFullscreenOnce, true)
+      document.addEventListener('keydown', requestFullscreenOnce, true)
+    }
+
+    onMounted(() => {
+      loadTasks()
+      setupAutoFullscreen()
+    })
 
     return {
       t,
+      brandInitials,
       showProfileDetails,
       showTasks,
       tasks,
       addTask,
       deleteTask,
-      toggleTask
+      toggleTask,
+      isMinimized,
+      sidebarCollapsed
     }
   }
 }
@@ -176,102 +305,262 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html, body, #app {
+  height: 100%;
+}
+
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 
-.top-nav {
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+.app-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-.nav-container {
-  max-width: 1600px;
-  margin: 0 auto;
+.app-body-minimized {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-body {
+    transition: none;
+  }
+}
+
+/* Restore pill (in-page "minimize" equivalent) */
+.restore-pill {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 500;
   display: flex;
   align-items: center;
-  padding: 0 2rem;
-  height: 70px;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: #0f172a;
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.813rem;
+  font-weight: 600;
 }
 
-.nav-container > .nav-tabs {
-  margin-left: auto;
-  margin-right: 1rem;
+.restore-pill:hover {
+  background: #1e293b;
 }
 
-.nav-container > .language-switcher {
-  margin-right: 1rem;
+.restore-pill-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
 }
 
-.logo {
+.restore-pill-icon-front {
+  fill: #0f172a;
+}
+
+.restore-pill:hover .restore-pill-icon-front {
+  fill: #1e293b;
+}
+
+.minimize-pill-enter-active,
+.minimize-pill-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.minimize-pill-enter-from,
+.minimize-pill-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .minimize-pill-enter-active,
+  .minimize-pill-leave-active {
+    transition: none;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  width: 264px;
+  flex-shrink: 0;
+  height: 100%;
+  background: #0f172a;
   display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  z-index: 100;
+  overflow: hidden;
 }
 
-.logo h1 {
-  font-size: 1.375rem;
+.brand {
+  position: relative;
+  padding: 0 0.75rem 1.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #94a3b8;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+.sidebar-toggle-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 1.125rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #f1f5f9;
   letter-spacing: -0.025em;
 }
 
-.subtitle {
-  font-size: 0.813rem;
+.brand-subtitle {
+  font-size: 0.75rem;
   color: #64748b;
   font-weight: 400;
-  padding-left: 0.75rem;
-  border-left: 1px solid #e2e8f0;
+}
+
+.brand-mark {
+  display: none;
 }
 
 .nav-tabs {
   display: flex;
+  flex-direction: column;
   gap: 0.25rem;
+  margin-top: 0.75rem;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .nav-tabs a {
-  padding: 0.625rem 1.25rem;
-  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  color: #94a3b8;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.938rem;
-  border-radius: 6px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
   transition: all 0.2s ease;
   position: relative;
 }
 
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .nav-tabs a:hover {
-  color: #0f172a;
-  background: #f1f5f9;
+  color: #f1f5f9;
+  background: #1e293b;
 }
 
 .nav-tabs a.active {
-  color: #2563eb;
-  background: #eff6ff;
+  color: #ffffff;
+  background: rgba(37, 99, 235, 0.15);
+  border-left-color: #3b82f6;
 }
 
-.nav-tabs a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #2563eb;
+.sidebar-spacer {
+  flex: 1;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0.75rem 0.25rem;
+}
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Dark-sidebar theming for ProfileMenu / LanguageSwitcher */
+.sidebar-footer .profile-button,
+.sidebar-footer .language-button {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.08);
+  width: 100%;
+}
+
+.sidebar-footer .profile-button:hover,
+.sidebar-footer .language-button:hover {
+  background: #273548;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-footer .profile-name,
+.sidebar-footer .language-label {
+  color: #e2e8f0;
+}
+
+.sidebar-footer .globe-icon,
+.sidebar-footer .chevron {
+  color: #94a3b8;
+}
+
+/* Content column */
+.content-column {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .main-content {
   flex: 1;
-  max-width: 1600px;
+  min-height: 0;
   width: 100%;
-  margin: 0 auto;
+  max-width: 1400px;
   padding: 1.5rem 2rem;
+  overflow-y: auto;
 }
 
 .page-header {
@@ -301,8 +590,9 @@ body {
 .stat-card {
   background: white;
   padding: 1.25rem;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
   transition: all 0.2s ease;
 }
 
@@ -345,9 +635,10 @@ body {
 
 .card {
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1.25rem;
   border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
   margin-bottom: 1.25rem;
 }
 
@@ -482,5 +773,141 @@ tbody tr:hover {
   border-radius: 8px;
   margin: 1rem 0;
   font-size: 0.938rem;
+}
+
+/* Manual collapse: reproduces the icon-rail look at any viewport width */
+.sidebar.sidebar-collapsed {
+  width: 72px;
+  padding: 1.5rem 0.5rem;
+  align-items: center;
+}
+
+.sidebar.sidebar-collapsed .brand {
+  padding: 0 0 1.25rem;
+  align-items: center;
+}
+
+.sidebar.sidebar-collapsed .brand-name,
+.sidebar.sidebar-collapsed .brand-subtitle {
+  display: none;
+}
+
+.sidebar.sidebar-collapsed .brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(37, 99, 235, 0.2);
+  color: #f1f5f9;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.sidebar.sidebar-collapsed .sidebar-toggle {
+  position: static;
+  margin-top: 0.5rem;
+}
+
+.sidebar.sidebar-collapsed .nav-tabs {
+  width: 100%;
+}
+
+.sidebar.sidebar-collapsed .nav-tabs a {
+  justify-content: center;
+  padding: 0.75rem 0;
+}
+
+.sidebar.sidebar-collapsed .nav-label {
+  display: none;
+}
+
+.sidebar.sidebar-collapsed .sidebar-footer {
+  width: 100%;
+  align-items: center;
+}
+
+.sidebar.sidebar-collapsed .sidebar-footer .profile-button,
+.sidebar.sidebar-collapsed .sidebar-footer .language-button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+}
+
+.sidebar.sidebar-collapsed .sidebar-footer .profile-name,
+.sidebar.sidebar-collapsed .sidebar-footer .language-label,
+.sidebar.sidebar-collapsed .sidebar-footer .chevron {
+  display: none;
+}
+
+/* Responsive: collapse sidebar to icon rail (forced regardless of manual toggle state) */
+@media (max-width: 1080px) {
+  .sidebar {
+    width: 72px;
+    padding: 1.5rem 0.5rem;
+    align-items: center;
+  }
+
+  .brand {
+    padding: 0 0 1.25rem;
+    align-items: center;
+  }
+
+  .brand-name,
+  .brand-subtitle {
+    display: none;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(37, 99, 235, 0.2);
+    color: #f1f5f9;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .sidebar-toggle {
+    position: static;
+    margin-top: 0.5rem;
+  }
+
+  .nav-tabs {
+    width: 100%;
+  }
+
+  .nav-tabs a {
+    justify-content: center;
+    padding: 0.75rem 0;
+  }
+
+  .nav-label {
+    display: none;
+  }
+
+  .sidebar-footer {
+    width: 100%;
+    align-items: center;
+  }
+
+  .sidebar-footer .profile-button,
+  .sidebar-footer .language-button {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .sidebar-footer .profile-name,
+  .sidebar-footer .language-label,
+  .sidebar-footer .chevron {
+    display: none;
+  }
 }
 </style>

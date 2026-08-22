@@ -304,12 +304,14 @@ import { useI18n } from '../composables/useI18n'
 import { formatCurrency } from '../utils/currency'
 import ProductDetailModal from '../components/ProductDetailModal.vue'
 import BacklogDetailModal from '../components/BacklogDetailModal.vue'
+import PurchaseOrderModal from '../components/PurchaseOrderModal.vue'
 
 export default {
   name: 'Dashboard',
   components: {
     ProductDetailModal,
     BacklogDetailModal,
+    PurchaseOrderModal,
   },
   setup() {
     const { t, currentCurrency, translateProductName, translateWarehouse } = useI18n()
@@ -817,12 +819,18 @@ export default {
   margin-bottom: 1.5rem;
 }
 
+.charts-grid .chart-card {
+  min-width: 0;
+}
+
 .chart-card.full-width {
   grid-column: 1 / -1;
+  min-width: 0;
 }
 
 .chart-content {
   padding: 1rem;
+  min-width: 0;
 }
 
 .donut-chart {
@@ -877,8 +885,9 @@ export default {
 }
 
 .donut-svg-compact {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
 }
 
 .donut-center-label {
@@ -1267,5 +1276,15 @@ export default {
   background: #475569;
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(100, 116, 139, 0.3);
+}
+
+@media (max-width: 1100px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-health-container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
