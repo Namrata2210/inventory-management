@@ -10,10 +10,22 @@
     <div v-else>
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">{{ t('inventory.stockLevels') }} ({{ filteredItems.length }} {{ t('inventory.skus') }})</h3>
+          <h3 class="card-title">
+            {{ t('inventory.stockLevels') }} ({{ filteredItems.length }}
+            {{ t('inventory.skus') }})
+          </h3>
           <div class="search-box">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            <svg
+              class="search-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              />
             </svg>
             <input
               v-model="searchQuery"
@@ -27,11 +39,22 @@
               class="clear-search"
               :title="t('inventory.clearSearch')"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
               </svg>
             </button>
           </div>
+          <button class="export-btn" @click="exportCsv">
+            {{ t('inventory.exportCsv') }}
+          </button>
         </div>
         <div class="table-container">
           <table>
@@ -55,13 +78,27 @@
                 class="clickable-row"
                 @click="showItemDetail(item)"
               >
-                <td><strong>{{ item.sku }}</strong></td>
+                <td>
+                  <strong>{{ item.sku }}</strong>
+                </td>
                 <td>{{ translateProductName(item.name) }}</td>
                 <td>{{ translateCategory(item.category) }}</td>
-                <td><strong>{{ item.quantity_on_hand }}</strong></td>
+                <td>
+                  <strong>{{ item.quantity_on_hand }}</strong>
+                </td>
                 <td>{{ item.reorder_point }}</td>
                 <td>{{ currencySymbol }}{{ item.unit_cost.toFixed(2) }}</td>
-                <td><strong>{{ currencySymbol }}{{ (item.quantity_on_hand * item.unit_cost).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</strong></td>
+                <td>
+                  <strong
+                    >{{ currencySymbol
+                    }}{{
+                      (item.quantity_on_hand * item.unit_cost).toLocaleString(
+                        undefined,
+                        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+                      )
+                    }}</strong
+                  >
+                </td>
                 <td>{{ translateWarehouse(item.location) }}</td>
                 <td>
                   <span :class="['badge', getStockStatusClass(item)]">
@@ -93,10 +130,11 @@ import InventoryDetailModal from '../components/InventoryDetailModal.vue'
 export default {
   name: 'Inventory',
   components: {
-    InventoryDetailModal
+    InventoryDetailModal,
   },
   setup() {
-    const { t, currentCurrency, translateProductName, translateWarehouse } = useI18n()
+    const { t, currentCurrency, translateProductName, translateWarehouse } =
+      useI18n()
 
     const currencySymbol = computed(() => {
       return currentCurrency.value === 'JPY' ? '¥' : '$'
@@ -112,10 +150,11 @@ export default {
     const selectedItem = ref(null)
 
     // Use shared filters
-    const { selectedLocation, selectedCategory, getCurrentFilters } = useFilters()
+    const { selectedLocation, selectedCategory, getCurrentFilters } =
+      useFilters()
 
     // Stock status order for sorting (using status keys)
-    const STATUS_ORDER = { 'lowStock': 0, 'adequate': 1, 'inStock': 2 }
+    const STATUS_ORDER = { lowStock: 0, adequate: 1, inStock: 2 }
 
     // Get stock status key (for sorting and translation)
     const getStockStatusKey = (item) => {
@@ -135,8 +174,8 @@ export default {
       // Apply search filter if query exists
       if (searchQuery.value.trim()) {
         const query = searchQuery.value.toLowerCase().trim()
-        filtered = filtered.filter(item =>
-          item.name.toLowerCase().includes(query)
+        filtered = filtered.filter((item) =>
+          item.name.toLowerCase().includes(query),
         )
       }
 
@@ -156,7 +195,7 @@ export default {
         // Inventory doesn't support month/status filters, only warehouse and category
         items.value = await api.getInventory({
           warehouse: filters.warehouse,
-          category: filters.category
+          category: filters.category,
         })
       } catch (err) {
         error.value = 'Failed to load inventory: ' + err.message
@@ -188,10 +227,10 @@ export default {
     const translateCategory = (category) => {
       const categoryMap = {
         'Circuit Boards': t('categories.circuitBoards'),
-        'Sensors': t('categories.sensors'),
-        'Actuators': t('categories.actuators'),
-        'Controllers': t('categories.controllers'),
-        'Power Supplies': t('categories.powerSupplies')
+        Sensors: t('categories.sensors'),
+        Actuators: t('categories.actuators'),
+        Controllers: t('categories.controllers'),
+        'Power Supplies': t('categories.powerSupplies'),
       }
       return categoryMap[category] || category
     }
@@ -199,6 +238,61 @@ export default {
     const showItemDetail = (item) => {
       selectedItem.value = item
       showItemModal.value = true
+    }
+
+    // Escape a single CSV field: wrap in quotes and double up embedded quotes
+    // whenever the value contains a comma, quote, or newline.
+    const escapeCsvField = (value) => {
+      const stringValue = String(value ?? '')
+      if (/[",\n\r]/.test(stringValue)) {
+        return `"${stringValue.replace(/"/g, '""')}"`
+      }
+      return stringValue
+    }
+
+    const exportCsv = () => {
+      const headers = [
+        t('inventory.table.sku'),
+        t('inventory.table.itemName'),
+        t('inventory.table.category'),
+        t('inventory.table.quantityOnHand'),
+        t('inventory.table.reorderPoint'),
+        t('inventory.table.unitCost'),
+        t('inventory.table.totalValue'),
+        t('inventory.table.location'),
+        t('inventory.table.status'),
+      ]
+
+      const rows = filteredItems.value.map((item) => [
+        item.sku,
+        translateProductName(item.name),
+        translateCategory(item.category),
+        item.quantity_on_hand,
+        item.reorder_point,
+        item.unit_cost.toFixed(2),
+        (item.quantity_on_hand * item.unit_cost).toFixed(2),
+        translateWarehouse(item.location),
+        getStockStatus(item),
+      ])
+
+      const csvContent = [headers, ...rows]
+        .map((row) => row.map(escapeCsvField).join(','))
+        .join('\r\n')
+
+      // Prepend BOM so Excel opens UTF-8 content (e.g. Japanese labels) correctly
+      const blob = new Blob(['﻿' + csvContent], {
+        type: 'text/csv;charset=utf-8;',
+      })
+      const url = URL.createObjectURL(blob)
+      const today = new Date().toISOString().slice(0, 10)
+
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `inventory-export-${today}.csv`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
     }
 
     onMounted(loadInventory)
@@ -218,9 +312,10 @@ export default {
       showItemDetail,
       currencySymbol,
       translateProductName,
-      translateWarehouse
+      translateWarehouse,
+      exportCsv,
     }
-  }
+  },
 }
 </script>
 
@@ -317,6 +412,24 @@ export default {
 .clear-search svg {
   width: 18px;
   height: 18px;
+}
+
+.export-btn {
+  flex: 0 0 auto;
+  padding: 0.5rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #0f172a;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.export-btn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
 }
 
 .loading,
