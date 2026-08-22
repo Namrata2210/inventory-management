@@ -6,8 +6,9 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    restocking: 'Restocking',
     companyName: 'Catalyst Components',
-    subtitle: 'Inventory Management System'
+    subtitle: 'Inventory Management System',
   },
 
   // Dashboard
@@ -22,10 +23,10 @@ export default {
       revenueYTD: 'Revenue (Orders) YTD',
       revenueMTD: 'Revenue (Orders) MTD',
       avgProcessingTime: 'Avg Processing Time (Days)',
-      goal: 'Goal'
+      goal: 'Goal',
     },
     summary: {
-      title: 'Summary'
+      title: 'Summary',
     },
     orderHealth: {
       title: 'Order Health',
@@ -34,13 +35,13 @@ export default {
       avgOrderValue: 'Avg Order Value',
       onTimeRate: 'On-Time Rate',
       avgFulfillmentDays: 'Avg Fulfillment (Days)',
-      total: 'Total'
+      total: 'Total',
     },
     ordersByMonth: {
-      title: 'Orders by Month'
+      title: 'Orders by Month',
     },
     inventoryValue: {
-      title: 'Inventory Value by Category'
+      title: 'Inventory Value by Category',
     },
     inventoryShortages: {
       title: 'Inventory Shortages',
@@ -55,7 +56,7 @@ export default {
       daysDelayed: 'Days Delayed',
       priority: 'Priority',
       unitsShort: 'units short',
-      days: 'days'
+      days: 'days',
     },
     topProducts: {
       title: 'Top Products by Revenue',
@@ -68,8 +69,8 @@ export default {
       unitsOrdered: 'Units Ordered',
       firstOrder: 'First Order',
       inStock: 'In Stock',
-      lowStock: 'Low Stock'
-    }
+      lowStock: 'Low Stock',
+    },
   },
 
   // Inventory
@@ -84,6 +85,7 @@ export default {
     totalValue: 'Total Value',
     lowStockItems: 'Low Stock Items',
     warehouses: 'Warehouses',
+    exportCsv: 'Export CSV',
     table: {
       sku: 'SKU',
       itemName: 'Item Name',
@@ -97,8 +99,8 @@ export default {
       unitPrice: 'Unit Price',
       totalValue: 'Total Value',
       location: 'Location',
-      status: 'Status'
-    }
+      status: 'Status',
+    },
   },
 
   // Orders
@@ -125,8 +127,21 @@ export default {
       totalValue: 'Total Value',
       status: 'Status',
       expectedDelivery: 'Expected Delivery',
-      actualDelivery: 'Actual Delivery'
-    }
+      actualDelivery: 'Actual Delivery',
+    },
+    submittedOrders: {
+      title: 'Submitted Orders',
+      noOrders: 'No restocking orders submitted yet.',
+      table: {
+        orderNumber: 'Order Number',
+        items: 'Items',
+        status: 'Status',
+        orderDate: 'Order Date',
+        expectedDelivery: 'Expected Delivery',
+        leadTime: 'Lead Time (days)',
+        totalValue: 'Total Value',
+      },
+    },
   },
 
   // Finance/Spending
@@ -144,18 +159,18 @@ export default {
     revenueVsCosts: {
       title: 'Monthly Revenue vs Costs',
       revenue: 'Revenue',
-      costs: 'Total Costs'
+      costs: 'Total Costs',
     },
     monthlyCostFlow: {
       title: 'Monthly Cost Flow',
       procurement: 'Procurement',
       operational: 'Operational',
       labor: 'Labor',
-      overhead: 'Overhead'
+      overhead: 'Overhead',
     },
     categorySpending: {
       title: 'Spending by Category',
-      ofTotal: 'of total'
+      ofTotal: 'of total',
     },
     transactions: {
       title: 'Recent Transactions',
@@ -163,8 +178,8 @@ export default {
       description: 'Description',
       vendor: 'Vendor',
       date: 'Date',
-      amount: 'Amount'
-    }
+      amount: 'Amount',
+    },
   },
 
   // Demand Forecast
@@ -184,8 +199,37 @@ export default {
       forecastedDemand: 'Forecasted Demand',
       change: 'Change',
       trend: 'Trend',
-      period: 'Period'
-    }
+      period: 'Period',
+    },
+  },
+
+  // Restocking
+  restocking: {
+    title: 'Restocking',
+    description:
+      'Review demand-driven restock recommendations and place orders within budget',
+    budget: 'Restock Budget',
+    totalCost: 'Total Cost',
+    remaining: 'Remaining Budget',
+    itemsRecommended: 'Items Recommended',
+    recommendedOrders: 'Recommended Restock Order',
+    noRecommendations: 'No items need restocking within the current budget.',
+    overBudgetNote:
+      '{count} item(s) qualified for restocking but were skipped because the budget ran out.',
+    placeOrder: 'Place Order',
+    placingOrder: 'Placing Order...',
+    orderPlacedSuccess:
+      'Restock order placed successfully. View it in the Orders tab under Submitted Orders.',
+    table: {
+      itemName: 'Item Name',
+      sku: 'SKU',
+      category: 'Category',
+      trend: 'Trend',
+      quantity: 'Quantity',
+      unitCost: 'Unit Cost',
+      subtotal: 'Subtotal',
+      leadTime: 'Lead Time (days)',
+    },
   },
 
   // Filters
@@ -195,7 +239,7 @@ export default {
     category: 'Category',
     orderStatus: 'Order Status',
     all: 'All',
-    allMonths: 'All Months'
+    allMonths: 'All Months',
   },
 
   // Statuses
@@ -206,21 +250,21 @@ export default {
     backordered: 'Backordered',
     inStock: 'In Stock',
     lowStock: 'Low Stock',
-    adequate: 'Adequate'
+    adequate: 'Adequate',
   },
 
   // Trends
   trends: {
     increasing: 'increasing',
     stable: 'stable',
-    decreasing: 'decreasing'
+    decreasing: 'decreasing',
   },
 
   // Priority
   priority: {
     high: 'High',
     medium: 'Medium',
-    low: 'Low'
+    low: 'Low',
   },
 
   // Categories
@@ -229,7 +273,7 @@ export default {
     sensors: 'Sensors',
     actuators: 'Actuators',
     controllers: 'Controllers',
-    powerSupplies: 'Power Supplies'
+    powerSupplies: 'Power Supplies',
   },
 
   // Spending Categories
@@ -237,14 +281,14 @@ export default {
     rawMaterials: 'Raw Materials',
     components: 'Components',
     equipment: 'Equipment',
-    consumables: 'Consumables'
+    consumables: 'Consumables',
   },
 
   // Warehouses
   warehouses: {
     sanFrancisco: 'San Francisco',
     london: 'London',
-    tokyo: 'Tokyo'
+    tokyo: 'Tokyo',
   },
 
   // Months
@@ -271,14 +315,14 @@ export default {
     september: 'September',
     october: 'October',
     november: 'November',
-    december: 'December'
+    december: 'December',
   },
 
   // Profile Menu
   profile: {
     profileDetails: 'Profile Details',
     myTasks: 'My Tasks',
-    logout: 'Logout'
+    logout: 'Logout',
   },
 
   // Profile Details Modal
@@ -290,7 +334,7 @@ export default {
     phone: 'Phone',
     joinDate: 'Join Date',
     employeeId: 'Employee ID',
-    close: 'Close'
+    close: 'Close',
   },
 
   // Tasks Modal
@@ -301,14 +345,27 @@ export default {
     priority: 'Priority',
     dueDate: 'Due Date',
     addTask: 'Add Task',
-    noTasks: 'No tasks yet. Add your first task above!'
+    noTasks: 'No tasks yet. Add your first task above!',
   },
 
   // Language
   language: {
     english: 'English',
     japanese: 'Japanese',
-    selectLanguage: 'Select Language'
+    selectLanguage: 'Select Language',
+  },
+
+  // Title Bar
+  titleBar: {
+    minimize: 'Minimize',
+    maximize: 'Maximize',
+    restore: 'Restore',
+    close: 'Close',
+    restoreApp: 'Restore application',
+    closeDialogTitle: 'This is a demo application',
+    closeDialogBody:
+      'This title bar is part of the app shell running inside your browser tab, so it cannot actually close the browser tab. If you are currently in fullscreen mode, exiting fullscreen is the closest equivalent and will happen automatically.',
+    closeDialogAcknowledge: 'Got it',
   },
 
   // Common
@@ -323,6 +380,6 @@ export default {
     search: 'Search',
     filter: 'Filter',
     export: 'Export',
-    items: 'items'
-  }
+    items: 'items',
+  },
 }

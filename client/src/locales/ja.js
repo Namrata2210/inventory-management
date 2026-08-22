@@ -6,8 +6,9 @@ export default {
     orders: '注文',
     finance: '財務',
     demandForecast: '需要予測',
+    restocking: '補充',
     companyName: '触媒コンポーネンツ',
-    subtitle: '在庫管理システム'
+    subtitle: '在庫管理システム',
   },
 
   // Dashboard
@@ -22,10 +23,10 @@ export default {
       revenueYTD: '収益（注文）年初来',
       revenueMTD: '収益（注文）月初来',
       avgProcessingTime: '平均処理時間（日）',
-      goal: '目標'
+      goal: '目標',
     },
     summary: {
-      title: '概要'
+      title: '概要',
     },
     orderHealth: {
       title: '注文状況',
@@ -34,13 +35,13 @@ export default {
       avgOrderValue: '平均注文額',
       onTimeRate: '定時配達率',
       avgFulfillmentDays: '平均履行日数',
-      total: '合計'
+      total: '合計',
     },
     ordersByMonth: {
-      title: '月別注文数'
+      title: '月別注文数',
     },
     inventoryValue: {
-      title: 'カテゴリ別在庫価値'
+      title: 'カテゴリ別在庫価値',
     },
     inventoryShortages: {
       title: '在庫不足',
@@ -55,7 +56,7 @@ export default {
       daysDelayed: '遅延日数',
       priority: '優先度',
       unitsShort: '単位不足',
-      days: '日'
+      days: '日',
     },
     topProducts: {
       title: '収益別トップ製品',
@@ -68,8 +69,8 @@ export default {
       unitsOrdered: '注文数量',
       firstOrder: '初回注文',
       inStock: '在庫あり',
-      lowStock: '在庫僅少'
-    }
+      lowStock: '在庫僅少',
+    },
   },
 
   // Inventory
@@ -84,6 +85,7 @@ export default {
     totalValue: '総価値',
     lowStockItems: '在庫僅少品目',
     warehouses: '倉庫',
+    exportCsv: 'CSVエクスポート',
     table: {
       sku: 'SKU',
       itemName: '品目名',
@@ -97,8 +99,8 @@ export default {
       unitPrice: '単価',
       totalValue: '総価値',
       location: '場所',
-      status: 'ステータス'
-    }
+      status: 'ステータス',
+    },
   },
 
   // Orders
@@ -125,8 +127,21 @@ export default {
       totalValue: '合計金額',
       status: 'ステータス',
       expectedDelivery: '予定配達日',
-      actualDelivery: '実際の配達日'
-    }
+      actualDelivery: '実際の配達日',
+    },
+    submittedOrders: {
+      title: '提出済み補充注文',
+      noOrders: 'まだ提出された補充注文はありません。',
+      table: {
+        orderNumber: '注文番号',
+        items: '品目',
+        status: 'ステータス',
+        orderDate: '注文日',
+        expectedDelivery: '予定配達日',
+        leadTime: 'リードタイム（日）',
+        totalValue: '合計金額',
+      },
+    },
   },
 
   // Finance/Spending
@@ -144,18 +159,18 @@ export default {
     revenueVsCosts: {
       title: '月別収益対コスト',
       revenue: '収益',
-      costs: '総コスト'
+      costs: '総コスト',
     },
     monthlyCostFlow: {
       title: '月別コストフロー',
       procurement: '調達',
       operational: '運営',
       labor: '人件費',
-      overhead: '間接費'
+      overhead: '間接費',
     },
     categorySpending: {
       title: 'カテゴリ別支出',
-      ofTotal: '全体の'
+      ofTotal: '全体の',
     },
     transactions: {
       title: '最近の取引',
@@ -163,8 +178,8 @@ export default {
       description: '説明',
       vendor: 'ベンダー',
       date: '日付',
-      amount: '金額'
-    }
+      amount: '金額',
+    },
   },
 
   // Demand Forecast
@@ -184,8 +199,36 @@ export default {
       forecastedDemand: '予測需要',
       change: '変化',
       trend: 'トレンド',
-      period: '期間'
-    }
+      period: '期間',
+    },
+  },
+
+  // Restocking
+  restocking: {
+    title: '補充',
+    description: '需要に基づく補充提案を確認し、予算内で注文を行う',
+    budget: '補充予算',
+    totalCost: '合計コスト',
+    remaining: '残り予算',
+    itemsRecommended: '推奨品目数',
+    recommendedOrders: '推奨補充注文',
+    noRecommendations: '現在の予算内で補充が必要な品目はありません。',
+    overBudgetNote:
+      '{count}件の品目が補充対象でしたが、予算超過のため除外されました。',
+    placeOrder: '注文する',
+    placingOrder: '注文中...',
+    orderPlacedSuccess:
+      '補充注文が正常に送信されました。注文タブの「提出済み補充注文」でご確認ください。',
+    table: {
+      itemName: '品目名',
+      sku: 'SKU',
+      category: 'カテゴリ',
+      trend: 'トレンド',
+      quantity: '数量',
+      unitCost: '単価',
+      subtotal: '小計',
+      leadTime: 'リードタイム（日）',
+    },
   },
 
   // Filters
@@ -195,7 +238,7 @@ export default {
     category: 'カテゴリ',
     orderStatus: '注文ステータス',
     all: 'すべて',
-    allMonths: 'すべての月'
+    allMonths: 'すべての月',
   },
 
   // Statuses
@@ -206,21 +249,21 @@ export default {
     backordered: 'バックオーダー',
     inStock: '在庫あり',
     lowStock: '在庫僅少',
-    adequate: '適量'
+    adequate: '適量',
   },
 
   // Trends
   trends: {
     increasing: '増加',
     stable: '安定',
-    decreasing: '減少'
+    decreasing: '減少',
   },
 
   // Priority
   priority: {
     high: '高',
     medium: '中',
-    low: '低'
+    low: '低',
   },
 
   // Categories
@@ -229,7 +272,7 @@ export default {
     sensors: 'センサー',
     actuators: 'アクチュエータ',
     controllers: 'コントローラー',
-    powerSupplies: '電源'
+    powerSupplies: '電源',
   },
 
   // Spending Categories
@@ -237,14 +280,14 @@ export default {
     rawMaterials: '原材料',
     components: '部品',
     equipment: '設備',
-    consumables: '消耗品'
+    consumables: '消耗品',
   },
 
   // Warehouses
   warehouses: {
     sanFrancisco: 'サンフランシスコ',
     london: 'ロンドン',
-    tokyo: '東京'
+    tokyo: '東京',
   },
 
   // Months
@@ -271,14 +314,14 @@ export default {
     september: '9月',
     october: '10月',
     november: '11月',
-    december: '12月'
+    december: '12月',
   },
 
   // Profile Menu
   profile: {
     profileDetails: 'プロフィール詳細',
     myTasks: 'マイタスク',
-    logout: 'ログアウト'
+    logout: 'ログアウト',
   },
 
   // Profile Details Modal
@@ -290,7 +333,7 @@ export default {
     phone: '電話番号',
     joinDate: '入社日',
     employeeId: '社員ID',
-    close: '閉じる'
+    close: '閉じる',
   },
 
   // Tasks Modal
@@ -301,14 +344,27 @@ export default {
     priority: '優先度',
     dueDate: '期限',
     addTask: 'タスクを追加',
-    noTasks: 'タスクがありません。上記からタスクを追加してください！'
+    noTasks: 'タスクがありません。上記からタスクを追加してください！',
   },
 
   // Language
   language: {
     english: 'English',
     japanese: '日本語',
-    selectLanguage: '言語を選択'
+    selectLanguage: '言語を選択',
+  },
+
+  // Title Bar
+  titleBar: {
+    minimize: '最小化',
+    maximize: '最大化',
+    restore: '元に戻す',
+    close: '閉じる',
+    restoreApp: 'アプリを復元',
+    closeDialogTitle: 'これはデモアプリケーションです',
+    closeDialogBody:
+      'このタイトルバーはブラウザのタブ内で動作するアプリシェルの一部であるため、実際にブラウザタブを閉じることはできません。現在フルスクリーン表示の場合は、フルスクリーンを終了することが最も近い動作となり、自動的に行われます。',
+    closeDialogAcknowledge: '了解',
   },
 
   // Common
@@ -323,7 +379,7 @@ export default {
     search: '検索',
     filter: 'フィルター',
     export: 'エクスポート',
-    items: '件'
+    items: '件',
   },
 
   // Product Names
@@ -359,7 +415,7 @@ export default {
     '48V DC Power Supply Unit': '48V DC電源ユニット',
     'USB-C PD 100W Power Supply': 'USB-C PD 100W電源',
     'Battery Backup Power Supply': 'バッテリバックアップ電源',
-    'Adjustable Bench Power Supply': '可変ベンチ電源'
+    'Adjustable Bench Power Supply': '可変ベンチ電源',
   },
 
   // Customer Names
@@ -377,6 +433,6 @@ export default {
     'Advanced Components Inc': 'アドバンストコンポーネンツ',
     'Premier Industries': 'プレミア工業',
     'Stellar Components Ltd': 'ステラコンポーネンツ',
-    'Dynamic Systems Ltd': 'ダイナミックシステムズ'
-  }
+    'Dynamic Systems Ltd': 'ダイナミックシステムズ',
+  },
 }
