@@ -133,6 +133,18 @@ class CreateRestockOrderRequest(BaseModel):
     budget: float
     items: List[RestockOrderItem]
 
+class Task(BaseModel):
+    id: str
+    title: str
+    priority: str
+    dueDate: str
+    status: str = "pending"
+
+class CreateTaskRequest(BaseModel):
+    title: str
+    priority: str
+    dueDate: str
+
 class SubmittedOrder(BaseModel):
     id: str
     order_number: str
@@ -155,6 +167,7 @@ CATEGORY_LEAD_TIMES = {
 DEFAULT_LEAD_TIME_DAYS = 10
 
 submitted_restock_orders: List[dict] = []
+tasks: List[dict] = []
 
 # API endpoints
 @app.get("/")
@@ -278,6 +291,42 @@ def create_restock_order(request: CreateRestockOrderRequest):
     }
     submitted_restock_orders.append(order)
     return order
+
+@app.get("/api/tasks", response_model=List[Task])
+def get_tasks():
+    """Get all tasks"""
+    return tasks
+
+@app.post("/api/tasks", response_model=Task, status_code=201)
+def create_task(request: CreateTaskRequest):
+    """Create a new task"""
+    task = {
+        "id": str(len(tasks) + 1),
+        "title": request.title,
+        "priority": request.priority,
+        "dueDate": request.dueDate,
+        "status": "pending",
+    }
+    tasks.append(task)
+    return task
+
+@app.delete("/api/tasks/{task_id}")
+def delete_task(task_id: str):
+    """Delete a task"""
+    task = next((t for t in tasks if t["id"] == task_id), None)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    tasks.remove(task)
+    return {"message": "Task deleted"}
+
+@app.patch("/api/tasks/{task_id}", response_model=Task)
+def toggle_task(task_id: str):
+    """Toggle a task's completion status"""
+    task = next((t for t in tasks if t["id"] == task_id), None)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    task["status"] = "completed" if task["status"] == "pending" else "pending"
+    return task
 
 @app.get("/api/dashboard/summary")
 def get_dashboard_summary(
