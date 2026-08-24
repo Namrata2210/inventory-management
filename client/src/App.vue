@@ -189,7 +189,7 @@
           <router-link
             to="/reports"
             :class="{ active: $route.path === '/reports' }"
-            title="Reports"
+            :title="t('nav.reports')"
           >
             <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
               <path
@@ -206,7 +206,7 @@
                 stroke-linecap="round"
               />
             </svg>
-            <span class="nav-label">Reports</span>
+            <span class="nav-label">{{ t('nav.reports') }}</span>
           </router-link>
         </nav>
 
